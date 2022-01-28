@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ 	<title>Dashboard</title>
+ 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+
+<body>
+ <div th:insert="fragments/header :: header"></div>
+ <hr>
+ <div class="container p">
+	 <div class="jumbotron-content > h1">
+	  	<p align="center">File's Detail page.</p><hr>
+	 </div>
+	<section class="my-5" th:object="${user}>
+    	<div class="container">
+        	<div class="row">
+            	<div class="col-md-8 mx-auto">
+                <h2>Upload a file here</h2>
+				<p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+				<form method="post" th:action="@{/singleUploadFile}" th:object="${user} enctype="multipart/form-data">
+						<div class="form-group">
+							<input type="text" th:field="*{id}" class="form-control" id="id" readonly="readonly">
+							<input type="file" name="file" class="form-control-file">
+						<br>
+                    <button type="submit" class="btn btn-primary">Upload File</button>
+                </form>
+            	</div>
+        	</div>
+    	</div>
+	</section>
+
+	<div>
+		<ul>
+			<li th:each="file : ${files}">
+				<a th:href="${file}" th:text="${file}" />
+			</li>
+		</ul>
+	</div>
+
+</body>
+ <hr>
+ <div th:replace="fragments/footer :: footer"/>
+</html>

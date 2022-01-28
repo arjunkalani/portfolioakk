@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Dashboard</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+
+<body>
+	<div th:insert="fragments/header :: header"></div>
+	<hr>
+	<div class="container p">
+		<div class="jumbotron">
+			<h1 align="center" class="display-8">User Management</h1>
+			<hr class="my-1">
+			<p align="center">
+				Hi <span th:utext="${userName}"></span>
+			</p>
+		</div>
+		<table align="center" style="width: 1080px; height: 248px;"
+			class="table table-striped">
+			<tr>
+				<td><p align="center">
+					<h1>
+						<a th:href="@{/esignup}">Add a User</a>
+					</h1>
+					</p>
+					</div>
+			</tr>
+			<td><p align="center">
+				<h1>
+					<a th:href="@{/userListRole}">List all users with roles</a>
+				</h1>
+				</p>
+				</div>
+			</tr>
+			<td><p align="center">
+				<h1>
+					<a th:href="@{/userList}">List all Users</a>
+				</h1>
+				</p>
+				</div>
+			</tr>
+			</tr>
+		</table>
+		<script
+			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+			integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+			crossorigin="anonymous"></script>
+</body>
+<hr>
+<div th:replace="fragments/footer :: footer" />
+</html>

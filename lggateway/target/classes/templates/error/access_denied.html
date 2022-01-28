@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ 	<title>Dashboard</title>
+ 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+	 <div th:insert="fragments/header :: header"></div>
+	 <hr>
+ 	<div class="jumbotron">
+			<h1 align="center" class="display-8">Admin Dashboard</h1>
+			<hr class="my-1">
+			<p align="center">Hi <span th:utext="${userName}"></span></p>
+			<p align="center">Role: <span th:utext="${roles}"></span></p>
+	</div>
+	 <div class="container p">
+		 <div class="jumbotron-content > h1">
+		  	<p align="center">Security Check! Unauthorized access level!</p>
+		  	<p align="center">Your access role is: <span th:utext="${roles}"></p>
+		  	<p align="center">You are not allowed in this area.  See system admin to change your level.</p>
+		  	<hr>
+		</div>
+	 </div>
+</body>
+ <hr>
+ <div th:replace="fragments/footer :: footer"/>
+</html>

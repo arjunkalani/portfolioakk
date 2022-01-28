@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Dashboard</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+
+<body>
+	<div th:insert="fragments/header :: header"></div>
+	<hr>
+	<div class="jumbotron">
+		<h1 align="center" class="display-8">User List page</h1>
+		<hr class="my-1">
+		<p align="center">
+			Hi <span th:utext="${userName}"></span>
+			
+		</p>
+	</div>
+	<table align="center" style="width: 1080px;"
+		class="table table-striped">
+		<tbody>
+			<tr>
+				<th>ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Active</th>
+				<th>Roles</th>
+				<th>View</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+			<tr th:each="User: ${userListRole}">
+				<td th:text="${User.id}">Id</td>
+				<td th:text="${User.firstname}">First Name</td>
+				<td th:text="${User.lastname}">Last Name</td>
+				<td th:text="${User.email}">Email</td>
+				<td th:text="${User.active}">Active?</td>
+				<td th:text="${User.roles}">Roles</td>
+				<td><a th:href="@{'/view/' + ${User.id}}"
+					class="btn btn-primary">View</a></td>
+				<td><a th:href="@{'/edit/' + ${User.id}}"
+					class="btn btn-primary">Edit</a></td>
+				<td><a th:href="@{'/delete/' + ${User.id}}"
+					class="btn btn-primary">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+    	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+		integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+		crossorigin="anonymous"></script>
+</body>
+<hr>
+<div th:replace="fragments/footer :: footer" />
+</html>

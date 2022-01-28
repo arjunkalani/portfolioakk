@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ 	<title>Dashboard</title>
+ 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+
+<body>
+	<div th:insert="fragments/header :: header"></div>
+	<hr>
+	<div class="jumbotron">
+		<h1 align="center" class="display-8">File List page</h1>
+		<hr class="my-1">
+		<p align="center">Hi <span th:utext="${userName}"></span>
+		</p>
+	</div>
+	<div class="container my-1" style="height: 1px; "></div>
+		<div class="row">
+		<table align="center" style="width: 1080px; " class="table table-striped">
+			<tbody>
+      			<tr>
+      			  <th>File Id</th>
+        		  <th>File Name</th>
+        		  <th>File Type</th>
+        		  <th>Delete</th>
+        		  <th>View</th>
+        		  <th>Download</th>
+				</tr>
+				<tr th:each="file: ${listFiles}">
+					<td th:text="${file.id}">File Id</td>
+					<td th:text="${file.name}">File Name</td>
+					<td th:text="${file.type}">File Type</td>
+					<td><a th:href="@{'/fileDelete/' + ${file.id}}" class="btn btn-primary">Delete</a></td>
+					<td><a th:href="@{'/fileView/' + ${file.id}}" class="btn btn-primary">View</a></td>
+					<td><a th:href="@{'/fileDownload/' + ${file.id}}" class="btn btn-primary">Download</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+ <hr>
+ <div th:replace="fragments/footer :: footer"/>
+</html>

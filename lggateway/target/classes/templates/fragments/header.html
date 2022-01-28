@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<link
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+	<nav th:fragment="header" class="navbar navbar-light"
+		style="background-color: #e3f2fd;">
+		<a class="navbar-brand" href="#">Welcome</a> <a
+			class="nav-item nav-link active" href="/index">Home <span
+			class="sr-only">(current)</span></a> <a class="nav-item nav-link"
+			href="/adminDashboard">Admin Portal</a> <a class="nav-item nav-link"
+			href="/userDashboard">User Portal</a> <a class="nav-item nav-link"
+			href="/secureWelcome">Dashboard</a> <a class="nav-item nav-link"
+			href="/logout">Logout</a> <a class="nav-item nav-link"
+			style="float: right" href="/loginPage">Login</a>
+	</nav>
+</body>
+</html>

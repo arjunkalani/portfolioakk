@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ 	<title>Dashboard</title>
+ 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+
+<body>
+ <div th:insert="fragments/header :: header"></div>
+ <hr>
+ <div class="container p">
+	 <div class="jumbotron-content > h1">
+	  	<p align="center">Hi <span th:utext="${userName}"></span>, Delete User.</p><hr>
+	 </div>
+
+ <div class= "container my-5">
+    <div class="container">
+        <form class="form-horizontal" role="form" method="POST" th:action="@{'/userDelete'}" th:object="${user}">
+         <div class="row">
+             <div class="col-md-3">
+                <div class="col-md-6">
+                    <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+                    </div>
+                </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="id">User ID</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group has-danger">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-key"></i>
+                         </div>
+                         <input type="text" th:field="*{id}" class="form-control" id="id" readonly="readonly">
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">First Name</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-user"></i>
+                         </div>
+                         <input type="text" th:field="*{firstname}" class="form-control" id="firstname" readonly="readonly">
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Last Name</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-user"></i>
+                         </div>
+                         <input type="text" th:field="*{lastname}" class="form-control" id="lastname" readonly="readonly">
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Email</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-user"></i>
+                         </div>
+                         <input type="text" th:field="*{email}" class="form-control" id="email" readonly="readonly">
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3"></div>
+             <div class="col-md-6">
+                 <button type="submit" class="btn btn-primary"><i class="fa fa-user-plus"></i>Delete</button>
+             </div>
+         </div>
+     </form>
+ </div>
+ </body>
+ <hr>
+ <div th:replace="fragments/footer :: footer"/>
+
+</html>

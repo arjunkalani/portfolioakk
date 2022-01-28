@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ 	<title>Dashboard</title>
+ 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+
+<body>
+ <div th:insert="fragments/header :: header"></div>
+ <hr>
+ <div class="container p">
+	 <div class="jumbotron-content > h1">
+	  	<p align="center">Hi <span th:utext="${userName}"></span>, Update User.</p><hr>
+	 </div>
+ <div class= "container my-5">
+    <div class="container">
+        <form class="form-horizontal" role="form" method="POST" th:action="@{'/updateUser'}" th:object="${user}">
+         <div class="row">
+             <div class="col-md-3">
+                <div class="col-md-6">
+                    <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+                    </div>
+                </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="id">User ID</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group has-danger">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-key"></i>
+                         </div>
+                         <input type="text" th:field="*{id}" class="form-control" id="id" readonly="readonly">
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">First Name</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-user"></i>
+                         </div>
+                         <input type="text" th:field="*{firstname}" class="form-control" id="firstname" autofocus>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Last Name</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-user"></i>
+                         </div>
+                         <input type="text" th:field="*{lastname}" class="form-control" id="lastname" autofocus>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="name">Email</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-user"></i>
+                         </div>
+                         <input type="text" th:field="*{email}" class="form-control" id="email" autofocus>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-3 field-label-responsive">
+                 <label for="password">Password*</label>
+             </div>
+             <div class="col-md-6">
+                 <div class="form-group has-danger">
+                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                         <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-key"></i>
+                         </div>
+                         <input type="password" th:field="*{password}" class="form-control" id="password"
+                                placeholder="Password" required >
+                     </div>
+                 </div>
+             </div>
+             <div class="col-md-3">
+                 <div class="form-control-feedback">
+                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                         </span>
+                 </div>
+             </div>
+         </div>
+	    <div class="form-group row">
+	        <label class="col-4 col-form-label">Roles: </label>
+	        <div class="col-8">
+	            <th:block th:each="role: ${userForm}">
+	            <input type="checkbox" th:field="*{roles}"
+	                th:text="${role.role}" th:value="${role.id}" class="m-2" />
+	            </th:block>
+	        </div>
+	    </div>
+         <div class="row">
+             <div class="col-md-3"></div>
+             <div class="col-md-6">
+                 <button type="submit" class="btn btn-primary"><i class="fa fa-user-plus"></i> Update</button>
+             </div>
+         </div>
+     </form>
+ </div>
+ </body>
+ <hr>
+ <div th:replace="fragments/footer :: footer"/>
+
+</html>

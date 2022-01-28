@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+ 	<title>Dashboard</title>
+ 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+
+<body>
+ <div th:insert="fragments/header :: header"></div>
+ <hr>
+ <div class="container p">
+	 <div class="jumbotron-content > h1">
+	  	<p align="center">File to be deleted -  Detail.</p>
+	 </div>
+    <center><h3>Please double check! Process can not be revered.</h3></center>
+ <div class= "container my-5">
+     <form class="form-horizontal" role="form" method="POST" th:action="@{'/fileDelete'}"  th:object="${fileDelete}">
+      <div class="row">
+              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+      </div>
+ </div>
+  <div class="row">
+      <div class="col-md-3 field-label-responsive">
+          <label for="id">File ID</label>
+      </div>
+      <div class="col-md-6">
+          <div class="form-group has-danger">
+              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                  <i class="fa fa-key"></i>
+                  <input type="text" th:field="*{id}" class="form-control" id="id" readonly="readonly">
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-3 field-label-responsive">
+          <label for="name">File Name</label>
+      </div>
+      <div class="col-md-6">
+          <div class="form-group">
+              <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                  <i class="fa fa-user"></i>
+                  <input type="text" th:field="*{name}" class="form-control" id="name" readonly="readonly" autofocus>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-3 field-label-responsive">
+          <label for="type">File Type</label>
+      </div>
+      <div class="col-md-6">
+      		<div class="form-group">
+              	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                  	<i class="fa fa-user"></i>
+                  	<input type="text" th:field="*{type}" class="form-control" id="type" readonly="readonly" autofocus>
+              	</div>
+          	</div>
+      </div>
+  </div>
+    <div class="row">
+    <div class="col-md-3 field-label-responsive">
+        <label for="owner">Owner</label>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group has-danger">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <i class="fa fa-key"></i>
+                <input type="text" th:field="*{owner}" th:utext="${user}" class="form-control" id="owner" readonly="readonly">
+            </div>
+        </div>
+    </div>
+  </div>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-user-plus"></i> Delete</button>
+        </div>
+    </div>
+ </form>
+ </body>
+ <hr>
+ <div th:replace="fragments/footer :: footer"/>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	 	<title>Dashboard</title>
+	 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+	</head>
+	<body>
+		 <div th:insert="fragments/header :: header"></div>
+		 <hr>
+		 <div class="jumbotron">
+			<h1 class="display-8" align="center">Role - Details</h1>
+			<hr class="my-1">
+			<p align="center">Hi <span th:utext="${userName}"></span></p>
+		 </div>
+		 <form class="form-group" role="form" method="POST" th:action="@{/roleUpdate}" th:object="${roleForm}">
+		      <div class="form-row">
+		            <div class="alert alert-primary" role="alert" th:if="${msg}" th:utext="${msg}">
+		      		</div>
+		      </div>
+		      <div class="form-group col-md-4">
+		          <label for="id">Roles ID</label>
+		          <input type="text" th:field="*{id}" class="form-control" id="id" readonly="readonly">
+			  </div>
+			  <div class="form-group col-md-4">
+			          <label for="role">Role</label>
+			          <input type="text" th:field="*{role}" class="form-control" id="role"  autofocus>
+			  </div>
+		      <button type="submit" class="btn btn-primary"> Update</button>
+		 </form>
+	 </body>
+	 <hr>
+	 <div th:replace="fragments/footer :: footer"/>
+</html>

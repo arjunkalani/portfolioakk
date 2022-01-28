@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+ 	<title>Dashboard</title>
+ 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+
+<body>
+	 <div th:insert="fragments/header :: header"></div>
+	 <hr>
+	<div class="jumbotron">
+			<h1 align="center" class="display-8">Admin Dashboard</h1>
+			<hr class="my-1">
+			<p align="center">Hi <span th:utext="${userName}"></span></p>
+			<p align="center">Role: <span th:utext="${roles}"></span></p>
+	</div>
+	<table align="center" style="width: 1080px; height: 248px; " class="table table-striped">
+		<tr>
+       		<td><p align="center"><h1><a th:href="@{/userManagement}">User Management</a></h1></p></div></tr>
+		</tr>
+		<tr>
+       		<td><p align="center"><h1><a th:href="@{/roleManagement}">Role Management</a></h1></p></div></tr>
+		</tr>
+	</table>
+</body>
+ <hr>
+ <div th:replace="fragments/footer :: footer"/>
+</html>

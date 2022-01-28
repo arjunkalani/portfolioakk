@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Dashboard</title>
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div th:insert="fragments/header :: header"></div>
+	<hr>
+	<div class="jumbotron">
+		<h1 class="display-8">Role - Details</h1>
+		<hr class="my-1">
+	</div>
+	<form class="form-horizontal" role="form" method="POST" th:action="@{/roleDelete}"	th:object="${roleDelete}">
+		<div class="form-group">
+			<div class="alert alert-primary" role="alert" th:if="${message}"
+				th:utext="${message}"></div>
+		</div>
+		<div class="form-group col-md-4">
+			<label for="id">Roles ID</label> 
+			<input type="text" th:field="*{id}"
+				class="form-control" id="id" readonly="readonly">
+		</div>
+		<div class="form-group col-md-4">
+			<label for="role">Role</label> <input type="text" th:field="*{role}"
+				class="form-control" id="role" readonly="readonly" autofocus>
+		</div>
+		<button type="submit" class="btn btn-primary"> Delete</button>
+	</form>
+</body>
+<hr>
+<div th:replace="fragments/footer :: footer" />
+</html>
