@@ -8,6 +8,7 @@ public abstract class CustomUserDetails extends User implements UserDetails {
 
 	User user;
 
+	
 	public CustomUserDetails(User user) {
 		super();
 		this.user = user;

@@ -1,12 +1,15 @@
 package com.larke.gateway.web;
 
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,7 +76,7 @@ public class RoleController {
 			return "dashboard/admin/roles/roleAdd";
 		}
 		roleService.saveRole(roleAdd);
-		redirectAttrs.addAttribute("roleList", roleAdd.getRole()).addFlashAttribute("message", "Role created!");
+		redirectAttrs.addAttribute(ROLELIST, roleAdd.getRole()).addFlashAttribute("message", "Role created!");
 		return REDIRECT;
 	}
 
@@ -135,6 +138,12 @@ public class RoleController {
 		User user = userService.findByEmail(auth.getName());
 		userName = user.getFirstname() + " " + user.getLastname();
 		return userName;
+	}
+	
+	@ModelAttribute("roles")
+	private Collection<? extends GrantedAuthority> getRoles(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return auth.getAuthorities();
 	}
 
 }

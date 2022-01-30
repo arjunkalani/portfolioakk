@@ -21,7 +21,7 @@ import org.springframework.web.servlet.view.JstlView;
 public class WebMvcConfig implements WebMvcConfigurer {
 	
     @Value("${upload.path}")
-    private  String UPLOADED_FOLDER;
+    private  static String uploadedFolder;
 
 	@Bean
 	public InternalResourceViewResolver viewResolver() {

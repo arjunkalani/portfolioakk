@@ -29,23 +29,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private UserRepository userRepository;
 
 	@Autowired
-	private LoginDao loginDao;
-
-	@Autowired
 	public void setUserRepository(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 
 	@Autowired
-	public void setLoginDao(LoginDao loginDao) {
-		this.loginDao = loginDao;
-	}
+	LoginDao loginDao;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(username);
-		LOGGER.info(
-				"from Collection = " + user.getEmail() + user.getPassword() + mapRolesToAuthorities(user.getRoles()));
 		if (user == null) {
 			throw new UsernameNotFoundException("Could not find user with that email");
 		}

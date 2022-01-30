@@ -11,7 +11,6 @@ com\larke\gateway\dao\RoleDaoImpl$RoleIdMapper.class
 com\larke\gateway\mapper\RoleMapper.class
 com\larke\gateway\web\RoleController.class
 com\larke\gateway\service\CustomUserDetailsService.class
-com\larke\gateway\dao\UserDaoImpl$UserRoleMapper.class
 com\larke\gateway\web\GreetingController.class
 com\larke\gateway\dao\RoleDaoImpl$RoleViewMapper.class
 com\larke\gateway\dao\FileDaoImpl$1.class

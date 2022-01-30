@@ -1,170 +1,164 @@
 <!doctype html>
 <html lang="en">
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Welcome Page</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author"
+		content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+	<meta name="generator" content="Hugo 0.88.1">
+	<title>User Edit Form</title>
+	<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.1/examples/jumbotron/">
+	<!-- Bootstrap core CSS -->
+	<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+		crossorigin="anonymous">
+	<style>
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			user-select: none;
+		}
+	
+		@media ( min-width : 768px) {
+			.bd-placeholder-img-lg {
+				font-size: 3.5rem;
+			}
+		}
+	</style>
 </head>
-<body>
-<div th:insert="fragments/header :: header"></div>
-<hr>
-<div class="jumbotron">
-	 <div class="jumbotron-content > h1">
-	  	<p align="center">Hi <span th:utext="${userName}"></span>, Update a user.</p><hr>
-	 </div>
-	<div class= "container my-5">
- 	<div class="container">
-     	<form class="form-horizontal" role="form" method="POST" th:action="@{'/updateUser'}" th:object="${user}">
-	         <div class="row">
-	             <div class="col-md-3">
-	                <div class="col-md-6">
-	                    <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
-	                    </div>
-	                </div>
-	             </div>
-	         </div>
-	         <div class="row">
-	             <div class="col-md-3 field-label-responsive">
-	                 <label for="id">User ID</label>
-	             </div>
-	             <div class="col-md-6">
-	                 <div class="form-group has-danger">
-	                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-	                         <div class="input-group-addon" style="width: 2.6rem">
-	                            <i class="fa fa-key"></i>
-	                         </div>
-	                         <input type="text" th:field="*{id}" class="form-control" id="id" readonly="readonly">
-	                     </div>
-	                 </div>
-	             </div>
-	         </div>
-	         <div class="row">
-	             <div class="col-md-3 field-label-responsive">
-	                 <label for="name">First Name*</label>
-	             </div>
-	             <div class="col-md-6">
-	                 <div class="form-group">
-	                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-	                         <div class="input-group-addon" style="width: 2.6rem">
-	                            <i class="fa fa-user"></i>
-	                         </div>
-	                         <input type="text" th:field="*{firstname}" class="form-control" id="firstname"  autofocus>
-	                     </div>
-	                 </div>
-	             </div>
-	         </div>
-	         <div class="row">
-	             <div class="col-md-3 field-label-responsive">
-	                 <label for="name">Last Name*</label>
-	             </div>
-	             <div class="col-md-6">
-	                 <div class="form-group">
-	                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-	                         <div class="input-group-addon" style="width: 2.6rem">
-	                            <i class="fa fa-user"></i>
-	                         </div>
-	                         <input type="text" th:field="*{lastname}" class="form-control" id="lastname" autofocus>
-	                     </div>
-	                 </div>
-	             </div>
-	         </div>
-	         <div class="row">
-	             <div class="col-md-3 field-label-responsive">
-	                 <label for="email">Email*</label>
-	             </div>
-	             <div class="col-md-6">
-	                 <div class="form-group">
-	                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-	                         <div class="input-group-addon" style="width: 2.6rem">
-	                            <i class="fa fa-user"></i>
-	                         </div>
-	                         <input type="text" th:field="*{email}" class="form-control" id="email"  autofocus>
-	                     </div>
-	                 </div>
-	             </div>
-	         </div>
-	         <div class="row">
-	             <div class="col-md-3 field-label-responsive">
-	                 <label for="password">Password*</label>
-	             </div>
-	             <div class="col-md-6">
-	                 <div class="form-group has-danger">
-	                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-	                         <div class="input-group-addon" style="width: 2.6rem">
-	                            <i class="fa fa-key"></i>
-	                         </div>
-	                         <input type="password" th:field="*{password}" class="form-control" id="password"
-	                                placeholder="Password" required >
-	                     </div>
-	                 </div>
-	             </div>
-	             <div class="col-md-3">
-                 <div class="form-control-feedback">
-                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
-                         </span>
-                 </div>
-	         	  </div>
-	         	   <div class="row">
-		             <div class="col-md-3 field-label-responsive">
-		                 <label for="active">Active?</label>
-		             </div>
-		             <div class="col-md-3">
-		                 <div class="form-group has-danger">
-		                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-		                         <div class="input-group-addon" style="width: 2.6rem">
-		                            <i class="fa fa-key"></i>
-		                         </div>
-			                 	 <input type="number" th:field="*{active}" class="form-control" id="active" autofocus min="0" max="1">
-		                     </div>
-		                 </div>
-		          </div>
-		         <div class="col-md-3">
-	                 <div class="form-control-feedback">
-	                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('active')}" th:errors="*{active}">
-	                         </span>
-	                 </div>
-	             </div>
-	             <div class="row">
-		             <div class="col-md-3 field-label-responsive">
-		                 <label for="enabled">Enabled?</label>
-		             </div>
-		             <div class="col-md-3">
-		                 <div class="form-group has-danger">
-		                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-		                         <div class="input-group-addon" style="width: 2.6rem">
-		                            <i class="fa fa-key"></i>
-		                         </div>
-			                 	 <input type="number" th:field="*{enabled}" class="form-control" id="enabled" autofocus min="0" max="1">
-		                     </div>
-		                 </div>
-		                 <div class="col-md-3">
-		                 <div class="form-control-feedback">
-		                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('enabled')}" th:errors="*{enabled}">
-		                         </span>
+<body class="py-4">
+	<main>
+	<div th:insert="fragments/header :: header"></div>
+			<header class="pb-1 mb-4 border-bottom">
+				<div class="p-1 mb-4 bg-light rounded-3">
+					<div class="text-center">
+						<h1 class="display-5 fw-bold">User Edit Form</h1>
+						<p class="my-1">
+							<p class="text-center">Hi <span th:utext="${userName}"></span></p>
+							<p class="text-center">Role: <span th:utext="${roles}"></span></p>
+						</p>
+					</div>
+					<div class= "container my-5" >
+					      <div class="row">
+					              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+					      </div>
+				 	</div>
+				</div>
+			</header>
+			 <div class= "container my-5">
+			    <div class="container">
+			        <form class="form-horizontal" role="form" method="POST" th:action="@{'/updateUser'}" th:object="${user}">
+			         <div class="row">
+			             <div class="col-md-3 field-label-responsive">
+			                 <label for="id">User ID</label>
+			             </div>
+			             <div class="col-md-6">
+			                 <div class="form-group has-danger">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem">
+			                            <em class="fa fa-key"></em>
+			                         </div>
+			                         <input type="text" th:field="*{id}" class="form-control" id="id" readonly="readonly">
+			                     </div>
 			                 </div>
-		          		</div>
-		         </div>
-		         <div class="row">
-		             <div class="col-md-3 field-label-responsive">
-		                 <label for="accountlocked?">Account Locked?</label>
-		             </div>
-		             <div class="col-md-3">
-		                 <div class="form-group has-danger">
-		                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-		                         <div class="input-group-addon" style="width: 2.6rem">
-		                            <i class="fa fa-key"></i>
-		                         </div>
-			                 	 <input type="number" th:field="*{accountlocked}" class="form-control" id="accountlocked" autofocus min="0" max="1">
-		                     </div>
-		                 </div>
-		          </div>
- <hr>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-3 field-label-responsive">
+			                 <label for="name">First Name</label>
+			             </div>
+			             <div class="col-md-6">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem">
+			                            <em class="fa fa-user"></em>
+			                         </div>
+			                         <input type="text" th:field="*{firstname}" class="form-control" id="firstname" autofocus>
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-3 field-label-responsive">
+			                 <label for="name">Last Name</label>
+			             </div>
+			             <div class="col-md-6">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem">
+			                            <em class="fa fa-user"></em>
+			                         </div>
+			                         <input type="text" th:field="*{lastname}" class="form-control" id="lastname" autofocus>
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-3 field-label-responsive">
+			                 <label for="name">Email</label>
+			             </div>
+			             <div class="col-md-6">
+			                 <div class="form-group">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem">
+			                            <em class="fa fa-user"></em>
+			                         </div>
+			                         <input type="text" th:field="*{email}" class="form-control" id="email" autofocus>
+			                     </div>
+			                 </div>
+			             </div>
+			         </div>
+			         <div class="row">
+			             <div class="col-md-3 field-label-responsive">
+			                 <label for="password">Password*</label>
+			             </div>
+			             <div class="col-md-6">
+			                 <div class="form-group has-danger">
+			                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+			                         <div class="input-group-addon" style="width: 2.6rem">
+			                            <em class="fa fa-key"></em>
+			                         </div>
+			                         <input type="password" th:field="*{password}" class="form-control" id="password"
+			                                placeholder="Password" required >
+			                     </div>
+			                 </div>
+			             </div>
+			             <div class="col-md-3">
+			                 <div class="form-control-feedback">
+			                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+			                         </span>
+			                 </div>
+			             </div>
+			         </div>
+				    <div class="form-group row">
+				        <label class="col-4 col-form-label">Roles: </label>
+				        <div class="col-8">
+				            <th:block th:each="role: ${userForm}">
+				            <input type="checkbox" th:field="*{roles}"
+				                th:text="${role.role}" th:value="${role.id}" class="m-2" />
+				            </th:block>
+				        </div>
+				    </div>
+			         <div class="row">
+			             <div class="col-md-3"></div>
+			             <div class="col-md-6">
+			                 <button type="submit" class="w-100 btn btn-primary btn-lg"><em class="fa fa-user-plus"></em> Update</button>
+			             </div>
+			         </div>
+			     </form>
+			 </div>
+		</main>
+		<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+		integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+		crossorigin="anonymous"></script>
+ </body>
  <div th:replace="fragments/footer :: footer"/>
-
 </html>

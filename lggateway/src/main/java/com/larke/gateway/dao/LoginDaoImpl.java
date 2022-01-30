@@ -45,10 +45,10 @@ public class LoginDaoImpl implements LoginDao {
 		}
 	}
 
-	private SqlParameterSource getSqlParameterSource(long user_id, long role_id) {
+	private SqlParameterSource getSqlParameterSource(long userId, long roleId) {
 		MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-		parameterSource.addValue("user_id", user_id);
-		parameterSource.addValue("role_id", role_id);
+		parameterSource.addValue("user_id", userId);
+		parameterSource.addValue("role_id", roleId);
 		return parameterSource;
 	}
 

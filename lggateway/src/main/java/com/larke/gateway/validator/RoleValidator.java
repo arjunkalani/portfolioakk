@@ -30,7 +30,7 @@ public class RoleValidator implements Validator {
 		if (roleService.findByRole(role.getRole()) != null) {
 			errors.rejectValue("role", "Duplicate.role.role");
 		}
-		if (role.getRole() == "ADMIN") {
+		if (role.getRole().equals("ADMIN")) {
 			errors.rejectValue("role", "Admin.role.role");
 		}
 	}

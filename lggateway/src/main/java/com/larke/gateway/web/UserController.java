@@ -1,6 +1,7 @@
 package com.larke.gateway.web;
 
 
+import java.util.Collection;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,7 +64,6 @@ public class UserController {
 			LOGGER.info("REPORTING FROM /process_register getSiteURL(request): ", getSiteURL(request));
 			model.setViewName("static/registerSuccess");
 		}
-		LOGGER.info("REPORTING FROM /process_register bindingResult: ", bindingResult);
 		return model;
 	}
 
@@ -79,8 +80,7 @@ public class UserController {
 	public String adminDashboard(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("roles", auth.getAuthorities());
-		LOGGER.info("REPORTING FROM /adminDashboard: ");
-		if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+		if (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
 			return "dashboard/admin/adminDashboard";
 		} else {
 			return "redirect:access_denied";
@@ -91,8 +91,7 @@ public class UserController {
 	public String userDashboard(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("roles", auth.getAuthorities());
-		LOGGER.info("REPORTING FROM /userDashboard: ");
-		if (auth != null && (auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))
+		if ((auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))
 				|| auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("USER"))
 				|| auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("EDITOR"))
 				|| auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("DBA")))) {
@@ -120,7 +119,6 @@ public class UserController {
 	public ModelAndView userListRole(User userl) {
 		ModelAndView model = new ModelAndView();
 		model.addObject("userListRole", userService.listAll());
-		LOGGER.info("REPORTING FROM /userListRole: ");
 		model.setViewName("dashboard/admin/users/userListRole");
 		return model;
 	}
@@ -196,6 +194,12 @@ public class UserController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findByEmail(auth.getName());
 		return user.getFirstname() + " " + user.getLastname() + "!" + " (" + user.getEmail() + ") ";
+	}
+	
+	@ModelAttribute("roles")
+	private Collection<? extends GrantedAuthority> getRoles(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return auth.getAuthorities();
 	}
 
 	private String getSiteURL(HttpServletRequest request) {

@@ -69,7 +69,6 @@ public class UserDaoImpl implements UserDao {
 
 	public User getUserById(long id) {
 		String selectQuery = "select id, firstname, lastname, email, password, updatedtime from user where id=?";
-		LOGGER.info("Getting Record with ID = ", id);
 		return jdbcTemp.queryForObject(selectQuery, new UserViewMapper(), new Object[] { id });
 	}
 
@@ -90,7 +89,6 @@ public class UserDaoImpl implements UserDao {
 		String deleteQuery = "delete from user where id=?";
 		Object[] params = { id };
 		int rows = jdbcTemp.update(deleteQuery, params);
-		LOGGER.info(rows + " row(s) deleted.");
 	}
 
 	public void updateAUserById(User user) {
@@ -127,13 +125,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean userExists(String email) {
-		String sql = "select * from user where email = ?";
-		List list = jdbcTemp.queryForList(sql, getSqlParameterSource(email, " "), new EmailMapper());
-		if (!list.isEmpty()) {
-			return true;
-		} else {
-			return false;
-		}
+		String selectQuery = "select * from user where email = ?";
+		List list = jdbcTemp.queryForList(selectQuery, getSqlParameterSource(email, " "), new EmailMapper());
+		return (!list.isEmpty());
 	}
 
 	@Override
@@ -160,30 +154,6 @@ public class UserDaoImpl implements UserDao {
 			user.setEmail(rs.getString("email"));
 			user.setPassword(rs.getString("password"));
 			user.setRoles((Set<Role>) rs.getArray("roles"));
-			LOGGER.info("REPORTING FROM UserRoleMapper: " + user.getRoles());
-			return user;
-		}
-	}
-
-	private static final class UserRoleMapper implements RowMapper<User> {
-		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-			User user = new User();
-			user.setId(rs.getLong("id"));
-			user.setEmail(rs.getString("email"));
-			user.setPassword(rs.getString("password"));
-			user.setFirstname(rs.getString("firstname"));
-			user.setLastname(rs.getString("lastname"));
-			user.setActive(rs.getInt("active"));
-			user.setEnabled(rs.getBoolean("enabled"));
-			user.setAccountexpired(rs.getBoolean("accountexpired"));
-			user.setCredentialsexpired(rs.getBoolean("credentialsexpired"));
-			user.setAccountlocked(rs.getBoolean("accountlocked"));
-			user.setCreatedtime(rs.getString("createdtime"));
-			user.setUpdatedtime(rs.getString("updatedtime"));
-			user.setConfirmationtoken(rs.getString("confirmationtoken"));
-			user.setVerificationCode(rs.getString("verificationcode"));
-			user.setRoles((Set<Role>) rs.getArray("roles"));
-			LOGGER.info("REPORTING FROM UserRoleMapper: " + user.getRoles());
 			return user;
 		}
 	}
@@ -204,9 +174,8 @@ public class UserDaoImpl implements UserDao {
 
 	public User findUserByEmail(String email) {
 		String selectQuery = "select email, password, roles from user where email = ?";
-		User user = (User) jdbcTemp.queryForObject(selectQuery, new Object[] { email, null, null },
+		return (User) jdbcTemp.queryForObject(selectQuery, new Object[] { email, null, null },
 				new UserEmailMapper());
-		return user;
 	}
 
 	private static final class UserEmailMapper implements RowMapper {
@@ -220,8 +189,7 @@ public class UserDaoImpl implements UserDao {
 
 	public List list() {
 		String selectQuery = "select email from user";
-		List list = jdbcTemp.queryForList(selectQuery, getSqlParameterSource(null, null), new UserEmailMapper());
-		return list;
+		return jdbcTemp.queryForList(selectQuery, getSqlParameterSource(null, null), new UserEmailMapper());
 	}
 
 }

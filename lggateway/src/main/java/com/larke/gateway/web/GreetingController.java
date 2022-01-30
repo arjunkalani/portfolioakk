@@ -2,12 +2,14 @@ package com.larke.gateway.web;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,7 @@ import com.larke.gateway.model.User;
 public class GreetingController {
 
 	static final Logger LOGGER = LoggerFactory.getLogger(GreetingController.class);
+	public static final String ROLES = "roles";
 
 	@Autowired
 	public void setUserService(UserService userService) {
@@ -77,7 +80,7 @@ public class GreetingController {
 	@GetMapping(path = { "/", "/secureWelcome" })
 	public String secureDashboard(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		model.addAttribute("roles", auth.getAuthorities());
+		model.addAttribute(ROLES, auth.getAuthorities());
 		LOGGER.info("REPORTING FROM secureWelcome: ");
 		return "dashboard/secureWelcome";
 	}
@@ -89,15 +92,14 @@ public class GreetingController {
 		List<Role> role = new ArrayList<>();
 		model.addAttribute("role", role);
 		List<Role> roles = roleRepository.findAll();
-		model.addAttribute("roles", roles);
+		model.addAttribute(ROLES, roles);
 		return "static/esignup";
 	}
 
 	@GetMapping(path = "/access_denied")
 	public String accessDenied(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		model.addAttribute("roles", auth.getAuthorities());
-		LOGGER.info("REPORTING FROM /access_denied: ");
+		model.addAttribute(ROLES, auth.getAuthorities());
 		return "error/access_denied";
 	}
 
@@ -106,6 +108,12 @@ public class GreetingController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findByEmail(auth.getName());
 		return user.getFirstname() + " " + user.getLastname() + "!" + " (" + user.getEmail() + ") ";
+	}
+	
+	@ModelAttribute("roleSignedIn")
+	private Collection<? extends GrantedAuthority> getRoles(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return auth.getAuthorities();
 	}
 
 }

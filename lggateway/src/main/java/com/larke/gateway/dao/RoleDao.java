@@ -25,6 +25,6 @@ public interface RoleDao {
 
 	public void deleteARoleRecord(Role role);
 
-	public Role AddARole(String role);
+	public Role addARole(String role);
 
 }

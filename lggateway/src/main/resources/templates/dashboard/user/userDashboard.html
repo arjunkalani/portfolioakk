@@ -1,29 +1,70 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html lang="en">
 <head>
- 	<title>Dashboard</title>
- 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author"
+		content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+	<meta name="generator" content="Hugo 0.88.1">
+	<title>User Dashboard</title>
+	<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.1/examples/jumbotron/">
+	<!-- Bootstrap core CSS -->
+	<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+		crossorigin="anonymous">
+	<style>
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			user-select: none;
+		}
+	
+		@media ( min-width : 768px) {
+			.bd-placeholder-img-lg {
+				font-size: 3.5rem;
+			}
+		}
+	</style>
 </head>
-
-<body>
-   <div th:insert="fragments/header :: header"></div>
-   <hr>
-   <div class="jumbotron">
-			<h1 align="center" class="display-8">User Dashboard</h1>
-			<hr class="my-1">
-			<p align="center">Hi <span th:utext="${userName}"></span></p>
-			<p align="center">Role: <span th:utext="${roles}"></span></p>
-	</div>
-	<table align="center" style="width: 1080px; height: 248px; " class="table table-striped">
-		<tr>
-       		<td><p align="center"><h1><a href="https://kalaniuniversity.azurewebsites.net" class="link-primary">Kalani University Program</a></h1></p></div></tr>
-		</tr>
-		<tr>
-       	<td><p align="center"><h1><a th:href="@{/documentManagement}">Document Management</a></h1></p></div></td>
-		</tr>
-	</table>
-</body>
- <hr>
- <div th:insert="fragments/footer :: footer"></div>
+<body class="py-4">
+	<main>
+	<div th:insert="fragments/header :: header"></div>
+			<header class="pb-1 mb-4 border-bottom">
+				<div class="p-1 mb-4 bg-light rounded-3">
+					<div class="text-center">
+						<h1 class="display-5 fw-bold">User Dashboard</h1>
+						<p class="my-1">
+							<p class="text-center">Hi <span th:utext="${userName}"></span></p>
+							<p class="text-center">Role: <span th:utext="${roles}"></span></p>
+						</p>
+					</div>
+					<div class= "container my-5" >
+					      <div class="row">
+					              <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+					      </div>
+				 	</div>
+				</div>
+			</header>
+			<table style="width: 1080px; height: 248px; " class="table table-striped">
+				<tr>
+		       		<th scope="row"><p class="text-center"><h1><a href="https://kalaniuniversity.azurewebsites.net" class="link-primary">Kalani University Program</a></h1></p></div></th>
+				</tr>
+				<tr>
+		       		<th scope="row" ><p class="text-center"><h1><a th:href="@{/documentManagement}">Document Management</a></h1></p></div></th>
+				</tr>
+		    </table>
+		</main>
+		<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+		integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+		crossorigin="anonymous"></script>
+ </body>
+ <div th:replace="fragments/footer :: footer"/>
 </html>

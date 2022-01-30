@@ -90,7 +90,6 @@ public class File {
 
 	public File() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getUrl() {

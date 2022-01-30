@@ -36,6 +36,12 @@ import lombok.var;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	static final Logger LOGGER = LoggerFactory.getLogger(SecurityConfiguration.class);
+	private static final String ADMIN = "ADMIN";
+	private static final String USER = "USER";
+	private static final String EDITOR = "EDITOR";
+	private static final String DBA = "DBA";
+	private static final String LOGINPAGE = "/static/loginPage";
+	
 
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -66,11 +72,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return LOGGER;
 	}
 
-	private final String USERS_QUERY = "select email, password, enabled from user where email=? ";
-	private final String ROLES_QUERY = "select u.email, r.role from user u inner join user_role ur on (u.id = ur.user_id) inner join role r on (ur.role_id=r.role_id) where u.email=?";
+	private static final String USERSQUERY = "select email, password, enabled from user where email=? ";
+	private static final String ROLESQUERY = "select u.email, r.role from user u inner join user_role ur on (u.id = ur.user_id) inner join role r on (ur.role_id=r.role_id) where u.email=?";
 
 	protected void configure(AuthenticationManagerBuilder auth, DataSource dataSource) throws Exception {
-		auth.jdbcAuthentication().usersByUsernameQuery(USERS_QUERY).authoritiesByUsernameQuery(ROLES_QUERY)
+		auth.jdbcAuthentication().usersByUsernameQuery(USERSQUERY).authoritiesByUsernameQuery(ROLESQUERY)
 				.dataSource(dataSource).passwordEncoder(bCryptpasswordEncoder()).and()
 				.authenticationProvider(authenticationProvider());
 	}
@@ -84,34 +90,33 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 	protected void configure(HttpSecurity http, DataSource dataSource) throws Exception {
-		LOGGER.info("REPORTING FROM /config http: ");
 		http.csrf().disable();
 		http
 
 				.authorizeRequests()
-						.antMatchers("/").hasAnyAuthority("USER", "DBA", "EDITOR", "ADMIN")
-						.antMatchers("/dashboard/admin/**", "/adminDashboard", "dashboard/admin/adminDashboard").hasRole("ADMIN")
-						.antMatchers("/delete/{id}", "/userManagement", "/documentManagement").hasAuthority("ADMIN")
-						.antMatchers("/dashboard/user/**", "/userDashboard").hasAnyAuthority("USER", "DBA", "EDITOR")
-						.antMatchers("/view/{id}", "/userListRole", "/userList").hasAnyAuthority("USER", "DBA", "EDITOR")
-						.antMatchers("/edit/{id}").hasAnyAuthority("DBA", "EDITOR")
-						.antMatchers("/dashboard/**", "/dashboard/secureWelcome", "/secureWelcome").hasAnyAuthority("USER", "DBA", "EDITOR", "ADMIN")
+						.antMatchers("/").hasAnyAuthority(USER, DBA, EDITOR, ADMIN)
+						.antMatchers("/adminDashboard", "dashboard/admin/adminDashboard", "/dashboard/admin/**").hasRole(ADMIN)
+						.antMatchers("/delete/{id}", "/userManagement", "/documentManagement").hasAuthority(ADMIN)
+						.antMatchers("/userDashboard", "/dashboard/user/**").hasAnyAuthority(USER, DBA, EDITOR)
+						.antMatchers("/view/{id}", "/userListRole", "/userList").hasAnyAuthority(USER, DBA, EDITOR)
+						.antMatchers("/edit/{id}").hasAnyAuthority(DBA, EDITOR)
+						.antMatchers("/dashboard/secureWelcome", "/secureWelcome", "/dashboard/**").hasAnyAuthority(USER, DBA, EDITOR, ADMIN)
 						.antMatchers("/index", "/greeting", "/esignup").permitAll()
 						.antMatchers("/login", "/loginPage", "/login_in_process").permitAll()
 						.antMatchers("/process_register", "/verify").permitAll()
-						.antMatchers("/static/**", "/static/loginPage", "/static/esignup", "/static/index","/static/registerSuccess").permitAll()
+						.antMatchers(LOGINPAGE, "/static/esignup", "/static/index","/static/registerSuccess", "/static/**").permitAll()
 						.antMatchers("/logout").permitAll()
 						.antMatchers("/open/**", "/js/**", "/css/**", "/img/**", "/fragments/**", "/webjars/**").permitAll()
 						.antMatchers("/uploads/**").permitAll()
 				.and()
 					.formLogin()
-						.loginPage("/static/loginPage")
+						.loginPage(LOGINPAGE)
 						.successHandler(loginSuccessHandler).permitAll()
 				.and()
 					.logout()
 						.logoutRequestMatcher(new AntPathRequestMatcher("/static/loginPage?logout"))
 						.logoutSuccessHandler(logoutSuccessHandler)
-						.logoutSuccessUrl("/static/loginPage")
+						.logoutSuccessUrl(LOGINPAGE)
 						.clearAuthentication(true).permitAll()
 				.and()
 					.rememberMe()

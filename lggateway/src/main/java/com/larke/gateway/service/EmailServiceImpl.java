@@ -60,23 +60,6 @@ public class EmailServiceImpl implements EmailService {
 		try {
 			sendVerificationEmail(user, siteURL);
 			LOGGER.info("REPORTING FROM register user id step 1: ", user.getId());
-			LOGGER.info("REPORTING FROM register email step 2: ", user.getEmail());
-			LOGGER.info("REPORTING FROM register First Name step 3: ", user.getFirstname());
-			LOGGER.info("REPORTING FROM register Last Name step 4: ", user.getLastname());
-			LOGGER.info("REPORTING FROM register Full Name step 5: ", user.getFullName());
-			LOGGER.info("REPORTING FROM register Active step 6: ", user.getActive());
-			LOGGER.info("REPORTING FROM register Enabled step 7: ", user.isEnabled());
-			LOGGER.info("REPORTING FROM register Account Locked step 8: ", user.isAccountlocked());
-			LOGGER.info("REPORTING FROM register Account Expired step 9: ", user.isAccountexpired());
-			LOGGER.info("REPORTING FROM register Credentials Expired step 10: ", user.isCredentialsexpired());
-			LOGGER.info("REPORTING FROM register Created Time step 11: ", user.getCreatedtime());
-			LOGGER.info("REPORTING FROM register Updated Time step 12: ", user.getUpdatedtime());
-			LOGGER.info("REPORTING FROM register Conformation Token step 13: ", user.getConfirmationtoken());
-			LOGGER.info("REPORTING FROM register Verification Token step 14: ", user.getVerificationCode());
-			LOGGER.info("REPORTING FROM register siteURL step 15: ", siteURL);
-			LOGGER.info("REPORTING FROM register Roles step 16: ", roles);
-			LOGGER.info("REPORTING FROM register Roles step 17: ");
-			LOGGER.info("REPORTING FROM register Roles step 18: ", user.getRoles());
 		} catch (UnsupportedEncodingException | MessagingException e) {
 			e.printStackTrace();
 		}

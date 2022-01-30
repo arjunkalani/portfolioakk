@@ -88,37 +88,31 @@ public class RoleDaoImpl implements RoleDao {
 		updateRole.setRole(role);
 		String updateQuery = "update role set role=? where id=?";
 		jdbcTemp.update(updateQuery, role, id);
-		LOGGER.info("Updated Record with ID = " + id);
 		return updateRole;
 	}
 
 	public void deleteRoleById(long id) {
 		String deleteQuery = "delete from role where id=?";
 		jdbcTemp.update(deleteQuery, id);
-		LOGGER.info("Deleted Record with ID = " + id);
 	}
 
 	public void deleteARole(long id, String role) {
 		String deleteQuery = "delete from role where role=? and id<>1";
 		jdbcTemp.update(deleteQuery, id);
-		if (role != null && role == "ADMIN") {
-			LOGGER.info("ADMIN Role cant not be deleted!");
+		if (role != null && role.equals("ADMIN")) {
 		}
-		LOGGER.info("Deleted Record for role = " + role);
 	}
 
 	public void deleteARoleRecord(Role role) {
 		String deleteQuery = "delete from role where id = ?";
 		jdbcTemp.update(deleteQuery, role);
-		LOGGER.info("REPORTING FROM /deleteRole: ");
 	}
 
-	public Role AddARole(String role) {
+	public Role addARole(String role) {
 		Role addRole = new Role();
 		addRole.setRole(role);
-		String InsertQuery = "insert into role (role) values (?)";
-		jdbcTemp.update(InsertQuery, role);
-		LOGGER.info("added a Record= ");
+		String insertQuery = "insert into role (role) values (?)";
+		jdbcTemp.update(insertQuery, role);
 		return addRole;
 	}
 

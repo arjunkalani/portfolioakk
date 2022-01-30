@@ -83,8 +83,8 @@ public class RoleServiceImpl implements RoleService {
 		return roleDao.updateARoleById(id, role);
 	}
 
-	public Role AddARole(String role) {
-		return roleDao.AddARole(role);
+	public Role addARole(String role) {
+		return roleDao.addARole(role);
 	}
 
 	public void deleteARoleRecord(Role role) {

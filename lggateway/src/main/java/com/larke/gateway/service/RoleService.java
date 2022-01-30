@@ -30,7 +30,7 @@ public interface RoleService {
 
 	public void deleteRole(Role role);
 
-	public Role AddARole(String role);
+	public Role addARole(String role);
 
 	public Role findByRole(String role);
 
